@@ -66,28 +66,29 @@ class PostRepository:
         projection = {}
 
         # Let's build the query
-        if "user_id" in inquiry:
+        if "user_id" in inquiry and inquiry['user_id']:
             query['user_id'] = int(inquiry['user_id'])
 
-        if "text" in inquiry:
+        if "text" in inquiry and inquiry['text']:
             regex = re.compile(inquiry['text'], re.IGNORECASE)
             query['text'] = {"$regex": regex}
 
         if "start_time" in inquiry and "end_time" in inquiry:
-            query['created_at'] = {"$gte": datetime.fromisoformat(inquiry['start_time'])}
-            query['expires_at'] = {"$lte": datetime.fromisoformat(inquiry['end_time'])}
+            if inquiry['start_time'] and inquiry['end_time']:
+                query['created_at'] = {"$gte": datetime.fromisoformat(inquiry['start_time'])}
+                query['expires_at'] = {"$lte": datetime.fromisoformat(inquiry['end_time'])}
 
-        elif "start_time" in inquiry:
+        elif "start_time" in inquiry and inquiry['start_time']:
             query['created_at'] = {"$gte": datetime.fromisoformat(inquiry['start_time'])}
 
-        elif "end_time" in inquiry:
+        elif "end_time" in inquiry and inquiry['end_time']:
             query['expires_at'] = {"$lte": datetime.fromisoformat(inquiry['end_time'])}
 
         # Let's build the projection
-        if "search_fields" in inquiry:
+        if "search_fields" in inquiry and inquiry["search_fields"]:
             projection["_id"] = 0  # Just hides _id
 
-            for field in inquiry["search_fields"]:
+            for field in inquiry["search_fields"].split():
                 projection[str(field)] = 1
 
         # Deciding which query should be executed

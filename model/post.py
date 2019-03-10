@@ -7,8 +7,8 @@ class Post:
         self._id = _id
         self.user_id = user_id
         self.created_on = created_on
-        self.text = text
-        self.image_url = image_url
+        self.text = str(text)
+        self.image_url = str(image_url)
         self.expires_in_hours = expires_in_hours
 
     def __str__(self):

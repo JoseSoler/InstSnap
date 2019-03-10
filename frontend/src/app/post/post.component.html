@@ -1,0 +1,39 @@
+<div class="form-style-8">
+    <h2>Configure your search</h2>
+    <form>
+      <input [(ngModel)]="inquiry.user_id"       name="user_id"        type="text"  placeholder="by User Id (Example: 00001)"/>
+      <input [(ngModel)]="inquiry.start_time"    name="start_time"     type="datetime"  placeholder="by Start Time (Example: 2019-03-04-8:00:00)" />
+      <input [(ngModel)]="inquiry.end_time"      name="end_time"       type="datetime"  placeholder="by End Time (Example: 2019-03-05-8:00:00)" />
+      <input [(ngModel)]="inquiry.text"          name="text"           type="text"  placeholder="by Keyword in text (Example: wow)" />
+      <input [(ngModel)]="inquiry.search_fields" name="search_fields"  type="text"  placeholder="Fields Projection (Example: user_id, text)"/>
+      <input (click)="searchPosts()" type="button" value="Search" />
+    </form>
+  </div>
+  
+<h2 class="pb-2 mb-0 alignleft">Search Results:</h2>
+<table id="posts">
+  <thead>
+    <tr>
+      <th scope="col">User Id</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Expires in hours</th>
+      <th scope="col">Expires At</th>
+      <th scope="col">Post Text</th>
+      <th scope="col">Post Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts">
+      <td>{{post.user_id}}</td>
+      <td>{{post.created_at}}</td>
+      <td>{{post.ttl_in_hours}}</td>
+      <td>{{post.expires_at}}</td>
+      <td>{{post.text}}</td>
+      <td>
+        <img src={{post.image_url}} style="width:200px;height:250px;"/>
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+

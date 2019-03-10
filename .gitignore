@@ -116,3 +116,5 @@ dmypy.json
 .pyre/
 
 .idea/
+
+frontend/node_modules
