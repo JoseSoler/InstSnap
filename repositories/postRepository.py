@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from datetime import datetime
 import re
 
+
 class PostRepository:
     """
      A Repository abstraction (based on DDD practises)
