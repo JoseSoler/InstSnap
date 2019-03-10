@@ -8,13 +8,9 @@ print("\n\n###############################################")
 print("# STEP 1 - PARSE SPREADSHEET INTO OBJECTS")
 print("###############################################\n")
 
-# Assign spreadsheet filename to `file`
-file = '../resources/BACC_Posts.xlsx'
-
-# Load spreadsheet
+# Assumes the CWD is the root of the project
+file = './resources/BACC_Posts.xlsx'
 xl = pd.ExcelFile(file)
-
-# Load a sheet into a DataFrame by name: df
 df = xl.parse('Sheet1')
 
 loaded_posts = []

@@ -5,7 +5,7 @@
       <input [(ngModel)]="inquiry.start_time"    name="start_time"     type="datetime"  placeholder="by Start Time (Example: 2019-03-04-8:00:00)" />
       <input [(ngModel)]="inquiry.end_time"      name="end_time"       type="datetime"  placeholder="by End Time (Example: 2019-03-05-8:00:00)" />
       <input [(ngModel)]="inquiry.text"          name="text"           type="text"  placeholder="by Keyword in text (Example: wow)" />
-      <input [(ngModel)]="inquiry.search_fields" name="search_fields"  type="text"  placeholder="Fields Projection (Example: user_id, text)"/>
+      <input [(ngModel)]="inquiry.search_fields" name="search_fields"  type="text"  placeholder="Fields Projection (Example: user_id text)"/>
       <input (click)="searchPosts()" type="button" value="Search" />
     </form>
   </div>
