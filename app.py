@@ -4,12 +4,16 @@ from repositories.postRepository import PostRepository
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # https://flask-cors.readthedocs.io/en/latest/
 
-repository = PostRepository('mongodb://localhost:27017/')
-
+# CORS must be allowed if the server that serves angular app
+# is not the same as the server offering the REST API
+# https://flask-cors.readthedocs.io/en/latest/
+CORS(app)
 
 # TODO: Find out how to use a proper logger instead of using print
+# TODO: Externalise connection string to a properties file
+repository = PostRepository('mongodb://localhost:27017/')
+
 
 @app.route('/api')
 def index():
@@ -22,6 +26,9 @@ def index():
 
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
+    """
+    :return: All the posts in database (very risky in terms of memory consumption)
+    """
     posts = repository.find_all()
     print("Serializing {} post(s)".format(len(posts)))
     return jsonify(posts)
@@ -29,14 +36,22 @@ def get_posts():
 
 @app.route('/api/posts/<string:post_id>', methods=['GET'])
 def get_post(post_id):
+    """
+    :param post_id: The id of the Post to be retrieved from database
+    :return: Whether the Post or 404 not found
+    """
     post = repository.find_by_id(post_id)
     return jsonify(post.to_dictionary())
 
 
 @app.route('/api/posts/_search', methods=['POST'])
 def search_posts():
-    query = request.get_json()
-    posts = repository.find_by_query(query)
+    """
+    Searches for posts based on the user's inquiry
+    :return: The list of Posts that matches the inquiry
+    """
+    user_inquiry = request.get_json()
+    posts = repository.find_by_query(user_inquiry)
     print("Serializing {} post(s)".format(len(posts)))
     return jsonify(posts)
 

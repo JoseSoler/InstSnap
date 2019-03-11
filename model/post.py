@@ -2,6 +2,19 @@ from datetime import timedelta
 
 
 class Post:
+    """
+    This class models the Post entity
+
+    You can notice that it is only used in the data insertion process
+    from the spreadsheet.
+
+    I found out that for such a simple use case, in which the class needs
+    almost no behaviour, just using a dictionary was more than enough.
+
+    In addition, a dictionary is directly understood by jsonify and
+    I didn't wanted to create a json serializer for the class.
+
+    """
 
     def __init__(self, _id, user_id, created_on, text, image_url, expires_in_hours):
         self._id = _id
@@ -23,7 +36,10 @@ class Post:
         return {'_id': str(self._id),
                 'user_id': self.user_id,
                 'created_at': self.created_on,
+
+                # Add a convenient field to make the queries simpler
                 'expires_at': self.created_on + timedelta(hours=self.expires_in_hours),
+
                 'ttl_in_hours': self.expires_in_hours,
                 'text': self.text,
                 'image_url': self.image_url}
