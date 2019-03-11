@@ -57,7 +57,7 @@ the official MongoDB image, but the requisite is to have docker already
 [installed](https://docs.docker.com/install/linux/docker-ce/ubuntu/) in your computer.
 
 ```bash
-sudo docker run -p 27017:27017 --name mongodb_posts mongo:4.0
+sudo docker run -p 27017:27017 -d --name mongodb_posts mongo:4.0
 ```
 
 If container is running correctly, you should see something like the following:
